@@ -25,29 +25,31 @@ function Capitalize(string) {
 
 export default function ComboboxDemo({ name }) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState("All");
 
-  const [products, setProducts] = React.useState([]);
+  const [categories, setCategories] = React.useState([]);
 
   React.useEffect(() => {
     const main = async () => {
       const categories = await getProductByCategories();
-      setProducts(categories.map((category) => Capitalize(category)));
+      setCategories([
+        "All",
+        ...categories.map((category) => Capitalize(category)),
+      ]);
     };
 
     main();
   }, []);
-
   return (
     <Popover name={name} open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between text-white font-sans"
+          className="w-full justify-between text-white font-sans"
         >
           {value
-            ? products.includes(Capitalize(value))
+            ? categories.includes(Capitalize(value))
               ? Capitalize(value)
               : "All"
             : "All"}
@@ -59,12 +61,12 @@ export default function ComboboxDemo({ name }) {
           <CommandInput placeholder="Search category..." />
           <CommandEmpty>No product found.</CommandEmpty>
           <CommandGroup>
-            {products.map((product) => (
+            {categories.map((category) => (
               <CommandItem
-                key={product}
-                value={product}
+                key={category}
+                value={category}
                 onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
+                  setValue(currentValue === value ? "All" : currentValue);
                   setOpen(false);
                 }}
                 className="group transition-colors"
@@ -73,10 +75,12 @@ export default function ComboboxDemo({ name }) {
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === product ? "opacity-100" : "opacity-0",
+                      Capitalize(value) === Capitalize(category)
+                        ? "opacity-100"
+                        : "opacity-0",
                     )}
                   />
-                  {product}
+                  {category}
                 </div>
               </CommandItem>
             ))}

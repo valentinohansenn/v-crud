@@ -12,24 +12,21 @@ export default function Footer() {
             </h2>
           </div>
           <div className="ml-72 flex flex-col items-end">
-            <h1 className="text-4xl font-black">About This Website</h1>
-            <p className="mt-2">
+            <h1 className="text-4xl font-black text-right">
+              About This Website
+            </h1>
+            <span className="mt-2 text-right">
               This website has been developed as part of an internship program
-              to develop a
-            </p>
-            <p>
-              CRUD functionality for products resources sourced from Ambisius
-              Lab.
-            </p>
-            <p>
-              It interfaces with the{" "}
-              <span className="ml-1 mr-1 text-blue-600 underline">
-                <a href="https://dummyjson.com/docs/products">
-                  DummyJSON Products API
-                </a>
-              </span>{" "}
+              to develop a CRUD functionality for products resources sourced
+              from Ambisius Lab. It interfaces with the{" "}
+              <a
+                className="ml-1 mr-1 text-blue-600 underline"
+                href="https://dummyjson.com/docs/products"
+              >
+                DummyJSON Products API
+              </a>
               to accomplish its objectives.
-            </p>
+            </span>
           </div>
         </div>
         <hr className="my-12 border-2" />

@@ -9,6 +9,10 @@ import { useRouter } from "next/navigation";
 
 export default function Header() {
   const setText = useStore((state) => state.setText);
+  const setCategory = useStore((state) => state.setCategory);
+  const limit = useStore((state) => state.limit);
+  const skip = useStore((state) => state.skip);
+
   const onSubmitRouter = useRouter();
 
   const handleKeyDown = (event) => {
@@ -25,7 +29,10 @@ export default function Header() {
     const searchText = form.get("query");
     const text = searchText ? `&q=${searchText}` : "";
     setText(searchText);
-    onSubmitRouter.push(`/?limit=100&skip=0${text}&category=${cate}`);
+    setCategory(cate.toLowerCase());
+    onSubmitRouter.push(
+      `/?limit=${limit}&skip=${skip}${text}&category=${cate.toLowerCase()}`,
+    );
   };
 
   return (
@@ -46,11 +53,11 @@ export default function Header() {
         >
           <div className="flex items-center rounded-full border-2 border-black w-full focus-within:ring focus-within:ring-gray-950 transition duration-300 focus:rounded-md">
             {/* Adjusted width for the dropdown */}
-            <div className="h-12 rounded rounded-l-full w-1/3 lg:w-1/4 flex items-center justify-center bg-black hover:bg-gray-700">
+            <div className="h-12 rounded rounded-l-full w-fit flex items-center justify-center bg-black hover:bg-gray-700">
               <ComboboxDemo name="category" />
             </div>
             {/* Adjusted width for the input */}
-            <div className="flex-1">
+            <div className="flex-grow">
               <input
                 type="text"
                 name="query"

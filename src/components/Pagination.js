@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Pagination,
   PaginationContent,
@@ -9,9 +9,47 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useStore } from "@/app/store";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export function PaginationDemo() {
   const [activePage, setActivePage] = useState(1);
+  const onClickRouter = useRouter();
+
+  const total = useStore((state) => state.total);
+  const limit = useStore((state) => state.limit);
+  const skip = useStore((state) => state.skip);
+  const text = useStore((state) => state.q);
+  const category = useStore((state) => state.category);
+  const setCategory = useStore((state) => state.setCategory);
+  const setText = useStore((state) => state.setText);
+  const setLimit = useStore((state) => state.setLimit);
+  const setSkip = useStore((state) => state.setSkip);
+
+  let recordsPerPage = 28;
+  const limitIndex = activePage * recordsPerPage;
+  const skipIndex = limitIndex - recordsPerPage;
+
+  useEffect(() => {
+    setLimit(limitIndex);
+    setSkip(skipIndex);
+    onClickRouter.push(
+      `/?limit=${limitIndex}&skip=${skipIndex}${text}&category=${category.toLowerCase()}`,
+    );
+  }, [activePage, limitIndex, skipIndex]);
+
+  let nPage = Math.ceil(total / recordsPerPage);
+  let pagination = [];
+  for (let counter = 1; counter <= nPage; counter++) {
+    pagination.push(counter);
+  }
+
+  const handleViewAll = async () => {
+    setText("");
+    setCategory("all");
+    await onClickRouter.push("/");
+  };
 
   const handlePageClick = (pageNumber) => {
     setActivePage(pageNumber);
@@ -19,13 +57,36 @@ export function PaginationDemo() {
 
   const handlePreviousClick = () => {
     const previousPage = activePage > 1 ? activePage - 1 : 1;
-    setActivePage(previousPage);
+    handlePageClick(previousPage);
   };
 
   const handleNextClick = () => {
-    const nextPage = activePage < 4 ? activePage + 1 : 4;
-    setActivePage(nextPage);
+    const nextPage =
+      activePage < pagination.length ? activePage + 1 : pagination.length;
+    handlePageClick(nextPage);
   };
+
+  if (total === 0) {
+    return (
+      <div className="py-48 font-sans text-lg max-w-2xl">
+        <div className="text-5xl font-black pb-2 text-center">
+          We didn't find a match for "{text}"
+        </div>
+        <div className="flex flex-col text-center pb-4 font-medium">
+          Try searching for something else instead
+        </div>
+        <div className="flex justify-center">
+          <Button
+            variant="outline"
+            onClick={handleViewAll}
+            className="text-white rounded-full font-bold font-sans px-0 py-0 border border-white bg-black h-16 w-64 hover:bg-gray-700 hover:text-white focus:outline-none"
+          >
+            View All
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Pagination className="pt-12 text-lg">
@@ -37,7 +98,7 @@ export function PaginationDemo() {
             onClick={() => handlePreviousClick()}
           />
         </PaginationItem>
-        {[1, 2, 3, 4].map((pageNumber) => (
+        {pagination.map((pageNumber) => (
           <PaginationItem key={pageNumber}>
             <PaginationLink
               href="#"
