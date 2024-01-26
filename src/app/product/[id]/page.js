@@ -12,7 +12,7 @@ export default async function page(idObj) {
   labels.forEach((label) => (label.defaultValue = product[label.name]));
   return (
     <main className="flex justify-center items-center h-screen">
-      <div className="flex flex-col md:flex-row font-sans font-semibold gap-20">
+      <div className="flex flex-col md:flex-row font-sans font-semibold gap-20 py-48">
         <div className="flex flex-col px-4">
           <div className="mb-6">
             <Link href="/">← Back to Home page</Link>
