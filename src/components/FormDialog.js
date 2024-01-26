@@ -43,12 +43,14 @@ export default function FormDialog(props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          className="text-white rounded-full font-bold font-sans px-0 py-0 border-2 border-black bg-black min-h-14 h-full w-64 flex justify-center hover:bg-gray-700 hover:text-white focus:outline-none"
-        >
-          {props.title}
-        </Button>
+        <div className="px-4 md:px-0">
+          <Button
+            variant="outline"
+            className="text-white rounded-full font-bold font-sans py-0 border-2 border-black bg-black min-h-14 h-full w-full md:w-64 flex justify-center hover:bg-gray-700 hover:text-white focus:outline-none"
+          >
+            {props.title}
+          </Button>
+        </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px] bg-white font-sans">
         <form action={submitHandler}>

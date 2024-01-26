@@ -12,8 +12,8 @@ export default async function page(idObj) {
   labels.forEach((label) => (label.defaultValue = product[label.name]));
   return (
     <main className="flex justify-center items-center h-screen">
-      <div className="flex font-sans font-semibold gap-20 pb-20">
-        <div className="flex flex-col">
+      <div className="flex flex-col md:flex-row font-sans font-semibold gap-20">
+        <div className="flex flex-col px-4">
           <div className="mb-6">
             <Link href="/">← Back to Home page</Link>
           </div>
@@ -21,12 +21,12 @@ export default async function page(idObj) {
             <Image
               src={product.thumbnail}
               alt="image"
-              width={500}
-              height={500}
+              width={400}
+              height={400}
             />
           </div>
         </div>
-        <div className="flex flex-col mt-10">
+        <div className="flex flex-col mt-10 px-4">
           <div>
             <h1 className="text-4xl">{product.title}</h1>
             <span className="text-xl">${product.price}</span>
@@ -59,7 +59,7 @@ export default async function page(idObj) {
             </table>
           </div>
           <hr className="border-2 my-8" />
-          <div className="flex justify-around gap-4 h-14 mt-8">
+          <div className="flex flex-col md:flex-row justify-around gap-4 h-14 mt-8">
             <CreateProduct labels={labels} data={product} />
             <DeleteProduct id={id} />
           </div>

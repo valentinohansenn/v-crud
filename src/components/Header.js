@@ -36,12 +36,12 @@ export default function Header() {
   };
 
   return (
-    <div className="flex justify-between py-7 px-3 flex-wrap">
-      <div className="flex justify-between w-full mx-12 mt-4 flex-wrap">
+    <div className="flex justify-between py-7 flex-wrap">
+      <div className="flex flex-col gap-3 md:flex-row justify-between w-full md:px-12 mt-4 flex-wrap">
         {/* Website Name section */}
         <Link
           href="/"
-          className="font-extrabold text-4xl text-black font-sans flex items-center"
+          className="font-extrabold text-4xl text-black font-sans flex justify-center items-center"
         >
           CRUD!
         </Link>
@@ -49,9 +49,9 @@ export default function Header() {
         <form
           onSubmit={handleSubmit}
           onKeyDown={handleKeyDown}
-          className="w-2/5 lg:w-3/5 flex justify-center items-center"
+          className="w-full md:w-3/5 flex justify-center items-center px-4"
         >
-          <div className="flex items-center rounded-full border-2 border-black w-full focus-within:ring focus-within:ring-gray-950 transition duration-300 focus:rounded-md">
+          <div className="flex items-center rounded-full border-4 border-black w-full focus-within:ring focus-within:ring-gray-950 transition duration-300 focus:rounded-md">
             {/* Adjusted width for the dropdown */}
             <div className="h-12 rounded rounded-l-full w-fit flex items-center justify-center bg-black hover:bg-gray-700">
               <ComboboxDemo name="category" />
@@ -63,15 +63,15 @@ export default function Header() {
                 name="query"
                 placeholder="Search..."
                 autoComplete="off"
-                className="h-12 bg-gray-100 rounded-none px-4 pl-2 pr-6 font-light text-black w-full focus:outline-none font-sans"
+                className="h-12 bg-gray-100 rounded-none pl-2 pr-6 font-light text-black w-full focus:outline-none font-sans"
               />
             </div>
             {/* Adjusted width for the search icon */}
             <button
-              className="h-12 outline-none hover:bg-gray-700 rounded rounded-r-full w-1/6 lg:w-1/12 flex items-center justify-center bg-black"
+              className="h-12 outline-none hover:bg-gray-700 rounded rounded-r-full w-2/12 md:w-1/12 flex items-center justify-center bg-black"
               type="submit"
             >
-              <SearchIcon className="text-gray-100" />
+              <SearchIcon className="text-gray-100 outline-0" />
             </button>
           </div>
         </form>

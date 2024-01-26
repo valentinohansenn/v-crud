@@ -46,7 +46,7 @@ export default function ComboboxDemo({ name }) {
         <Button
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between text-white font-sans"
+          className="w-full justify-between text-white font-sans outline-none"
         >
           {value
             ? categories.includes(Capitalize(value))
